@@ -78,7 +78,7 @@ export default function Game() {
           icon: 'warning',
           title: 'Oops...',
           text: 'Match Draws!',
-          timer: 1800,
+          timer: 10000,
         });
       } 
     }, [square]);
