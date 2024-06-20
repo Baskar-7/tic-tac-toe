@@ -93,7 +93,7 @@ export default function Game() {
        isXnext ? nextSquares[i]='x' : nextSquares[i]='O';
        setSquare(nextSquares);
        setNext(!isXnext);
-       if(!controls.muted) clicked.play();
+       if((isXnext || !controls.mode) && !controls.muted ) clicked.play();
     }
 
     function playComputer() {
