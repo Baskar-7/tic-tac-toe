@@ -99,11 +99,22 @@ export default function Game() {
     function playComputer() {
       const patterns = controls.difficulty ? hardmode : easymode;
       const nextMove = findBestMove(square, patterns);
-      if (nextMove !== null) handleClick(nextMove);
+      if (nextMove !== null || nextMove == 0) handleClick(nextMove);
     }
   
     function findBestMove(squares, patterns) {
-      return canWin(squares, 'O') || canWin(squares, 'x') || getWinningMove(squares, patterns) || getFirstEmptySquare(squares);
+      var nextMove=null;
+      nextMove=canWin(squares,"O");
+      if(!nextMove && nextMove !== 0)
+        nextMove=canWin(squares,"x");
+      if(!nextMove && nextMove !== 0)
+        nextMove=getWinningMove(squares,patterns);
+      if(!nextMove && nextMove !== 0)
+        nextMove=getFirstEmptySquare(squares,patterns);
+      if(nextMove || nextMove === 0)
+      { 
+        return nextMove;
+      }
     }
 
     function canWin(squares,element)
@@ -112,7 +123,7 @@ export default function Game() {
       {
         var [a,b,c]=easymode[i];
         var nextSquare= (squares[a] === element && squares[b] === element ) ? c : ((squares[b] === element && squares[c] === element ) ?  a : ((squares[c] === element && squares[a] === element ) ? b : null))
-        if(nextSquare && squares[nextSquare] !== (element === "O" ? "x" : "O"))
+        if((nextSquare || nextSquare === 0) && squares[nextSquare] !== (element === "O" ? "x" : "O"))
         {
           return nextSquare;
         }
