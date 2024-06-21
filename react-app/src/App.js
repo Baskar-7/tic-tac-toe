@@ -45,11 +45,11 @@ export default function Game() {
       const winner = calculateWinner(square);
       if (winner) {
         setResults(results => ({...results,[winner] : results[winner]+1}));
-        if(!controls.muted)
+        
         {
           if(isXnext && controls.mode)
           {
-            lose.play();
+            if(!controls.muted)lose.play();
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -62,7 +62,7 @@ export default function Game() {
           }
           else
           {
-            won.play();
+            if(!controls.muted) won.play();
             Swal.fire({
               icon: 'success',
               title: '',
