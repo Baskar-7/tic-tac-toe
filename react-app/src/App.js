@@ -40,7 +40,6 @@ export default function Game() {
       if(!isXnext && controls.mode)
         playComputer();
     }, [square, controls.mode]);
- 
 
     useEffect(() => {
       const winner = calculateWinner(square);
@@ -56,7 +55,10 @@ export default function Game() {
               title: 'Oops...',
               text: 'Computer Wins!',
               timer: 10000,
-            });
+            }).then((result) => {
+              if (result.isConfirmed) {
+                 restart();
+              }})
           }
           else
           {
@@ -66,7 +68,10 @@ export default function Game() {
               title: '',
               text: isXnext ? 'O Wins!' : 'X Wins!',
               timer: 10000,
-            });
+            }).then((result) => {
+              if (result.isConfirmed) {
+                 restart();
+              }})
           }
         }
       } 
@@ -79,7 +84,10 @@ export default function Game() {
           title: 'Oops...',
           text: 'Match Draws!',
           timer: 10000,
-        });
+        }).then((result) => {
+          if (result.isConfirmed) {
+             restart();
+          }})
       } 
     }, [square]);
 
@@ -93,7 +101,9 @@ export default function Game() {
        isXnext ? nextSquares[i]='x' : nextSquares[i]='O';
        setSquare(nextSquares);
        setNext(!isXnext);
+
        if((isXnext || !controls.mode) && !controls.muted ) clicked.play();
+        
     }
 
     function playComputer() {
